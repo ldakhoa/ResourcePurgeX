@@ -30,14 +30,17 @@ struct ContentView: View {
                         TableColumn("Full Path", value: \.path.string)
                     }
                     if viewModel.contentState == .loading {
-                        Text("Loading...")
+                        VStack(spacing: 8) {
+                            ProgressView()
+                            Text("Searching unused file. This may take a while...")
+                        }
                     }
                 }
             }
 
             Spacer(minLength: 16)
 
-            if viewModel.contentState != .idling {
+            if viewModel.contentState == .content {
                 HStack {
                     let size = viewModel.unusedFiles.reduce(0) { $0 + $1.size }.fn_readableSize
                     Text("\(viewModel.unusedFiles.count) files are found. Total Size: \(size)")
@@ -96,7 +99,7 @@ struct ContentView: View {
             }
             HStack {
                 Spacer()
-                Button("Search...") {
+                Button(viewModel.isLoading ? "Searching... " : "Search...") {
                     viewModel.fetchUnusedFiles(
                         from: projectPath,
                         excludePaths: excludePaths,
@@ -104,6 +107,7 @@ struct ContentView: View {
                         resourcesExtensions: resourcesExtensions
                     )
                 }
+                .disabled(viewModel.isLoading)
                 .tint(Color.accentColor)
                 .buttonStyle(.borderedProminent)
             }

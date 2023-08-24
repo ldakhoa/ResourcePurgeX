@@ -1,10 +1,15 @@
 import FengNiaoKit
 import SwiftUI
 
-@MainActor
 final class ViewModel: ObservableObject {
     @Published var unusedFiles: [FengNiaoKit.FileInfo] = []
     @Published var contentState: ContentState = .idling
+
+    var isLoading: Bool {
+        contentState == .loading
+    }
+
+    private let queue = DispatchQueue(label: "com.ldakhoa.scansweep", attributes: .concurrent)
 
     enum ContentState {
         case idling
@@ -19,20 +24,28 @@ final class ViewModel: ObservableObject {
         fileExtensions: String,
         resourcesExtensions: String
     ) {
-        contentState = .loading
-        let fengNiao = FengNiao(
-            projectPath: path,
-            excludedPaths: [],
-            resourceExtensions: resourcesExtensions.split(separator: " ").map(String.init),
-            searchInFileExtensions: fileExtensions.split(separator: " ").map(String.init)
-        )
 
-        do {
-            let files = try fengNiao.unusedFiles()
-            self.unusedFiles = files
-            self.contentState = .content
-        } catch {
-            self.contentState = .error
+        contentState = .loading
+        queue.async {
+            let fengNiao = FengNiao(
+                projectPath: path,
+                excludedPaths: [],
+                resourceExtensions: resourcesExtensions.split(separator: " ").map(String.init),
+                searchInFileExtensions: fileExtensions.split(separator: " ").map(String.init)
+            )
+
+            do {
+                let files = try fengNiao.unusedFiles()
+
+                DispatchQueue.main.async {
+                    self.unusedFiles = files
+                    self.contentState = .content
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.contentState = .error
+                }
+            }
         }
     }
 }
