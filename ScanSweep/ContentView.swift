@@ -9,6 +9,7 @@ struct ContentView: View {
     @State private var fileExtensions: String = Constants.defaultFileExtensions
     @State private var resourcesExtensions: String = Constants.defaultResourcesExtension
     @State private var showDeleteAlert: Bool = false
+    @FocusState private var focusedField: FocusedField?
 
     var body: some View {
         VStack {
@@ -72,6 +73,7 @@ struct ContentView: View {
             HStack {
                 Text("Project Path")
                 TextField("Root path of your Xcode project", text: $projectPath)
+                    .focused($focusedField, equals: .project)
                 Button("Browse...") {
                     handleOpenFile()
                 }
@@ -82,6 +84,7 @@ struct ContentView: View {
                     "Exclude paths from search, separates with space. Example: Pods Carthage",
                     text: $excludePaths
                 )
+                .focused($focusedField, equals: .excludes)
             }
             HStack {
                 Text("File Extensions")
@@ -89,6 +92,7 @@ struct ContentView: View {
                     "Types of files, separates with space. Default is 'm mm swift xib storyboard'",
                     text: $fileExtensions
                 )
+                .focused($focusedField, equals: .files)
             }
             HStack {
                 Text("Resources Extensions")
@@ -96,21 +100,31 @@ struct ContentView: View {
                     "Resource file extensions, separates with space. Default is 'imageset jpg png gif pdf'",
                     text: $resourcesExtensions
                 )
+                .focused($focusedField, equals: .resources)
             }
             HStack {
                 Spacer()
                 Button(viewModel.isLoading ? "Searching... " : "Search...") {
+                    if projectPath.isEmpty {
+                        focusedField = .project
+                        return
+                    }
+
                     viewModel.fetchUnusedFiles(
                         from: projectPath,
                         excludePaths: excludePaths,
                         fileExtensions: fileExtensions,
                         resourcesExtensions: resourcesExtensions
                     )
+                    focusedField = nil
                 }
                 .disabled(viewModel.isLoading)
                 .tint(Color.accentColor)
                 .buttonStyle(.borderedProminent)
             }
+        }
+        .onTapGesture {
+            focusedField = nil
         }
     }
 
@@ -125,6 +139,10 @@ struct ContentView: View {
             }
         }
     }
+}
+
+enum FocusedField {
+    case project, excludes, files, resources
 }
 
 enum Constants {
