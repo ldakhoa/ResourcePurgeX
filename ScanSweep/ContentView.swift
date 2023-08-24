@@ -4,12 +4,29 @@ import Cocoa
 
 struct ContentView: View {
     @StateObject private var viewModel: ViewModel = ViewModel()
+    
+    // MARK: Text Field
+    
     @State private var projectPath: String = ""
     @State private var excludePaths: String = ""
     @State private var fileExtensions: String = Constants.defaultFileExtensions
     @State private var resourcesExtensions: String = Constants.defaultResourcesExtension
-    @State private var showDeleteAlert: Bool = false
     @FocusState private var focusedField: FocusedField?
+
+    // MARK: Show alert
+    
+    @State private var showDeleteAlert: Bool = false
+
+    // MARK: Table
+
+    @State private var selected = Set<FengNiaoKit.FileInfo.ID>()
+    @State private var fileNameSortOrder = [
+        KeyPathComparator(\FengNiaoKit.FileInfo.fileName),
+        KeyPathComparator(\FengNiaoKit.FileInfo.size),
+        KeyPathComparator(\FengNiaoKit.FileInfo.path)
+    ]
+
+    // MARK: View
 
     var body: some View {
         VStack {
@@ -21,14 +38,16 @@ struct ContentView: View {
                 Text("Unused Files")
                     .font(.headline)
                 ZStack {
-                    Table(viewModel.unusedFiles) {
+                    Table(viewModel.unusedFiles, selection: $selected, sortOrder: $fileNameSortOrder) {
                         TableColumn("File Name", value: \.fileName)
                             .width(min: 150, ideal: 150, max: 300)
-                        TableColumn("Size") {
+                        TableColumn("Size", value: \.size) {
                             Text($0.size.fn_readableSize)
                         }
                         .width(min: 50, max: 150)
                         TableColumn("Full Path", value: \.path.string)
+                    }.onChange(of: fileNameSortOrder) { sortOrder in
+                        viewModel.unusedFiles.sort(using: sortOrder)
                     }
                     if viewModel.contentState == .loading {
                         VStack(spacing: 8) {

@@ -11,11 +11,8 @@ final class ViewModel: ObservableObject {
 
     private let queue = DispatchQueue(label: "com.ldakhoa.scansweep", attributes: .concurrent)
 
-    enum ContentState {
-        case idling
-        case loading
-        case content
-        case error
+    func sort() {
+        
     }
 
     func fetchUnusedFiles(
@@ -24,8 +21,8 @@ final class ViewModel: ObservableObject {
         fileExtensions: String,
         resourcesExtensions: String
     ) {
-
         contentState = .loading
+
         queue.async {
             let fengNiao = FengNiao(
                 projectPath: path,
@@ -47,5 +44,14 @@ final class ViewModel: ObservableObject {
                 }
             }
         }
+    }
+}
+
+extension ViewModel {
+    enum ContentState {
+        case idling
+        case loading
+        case content
+        case error
     }
 }
