@@ -212,6 +212,9 @@ struct MainContentView: View {
                     text: $resourcesExtensions
                 )
                 .focused($focusedField, equals: .resources)
+                Button("Restore") {
+                    resourcesExtensions = Constants.defaultResourcesExtension
+                }
             }
             HStack {
                 Spacer()
