@@ -1,9 +1,14 @@
 import SwiftUI
+import FengNiaoKit
 
 struct DeleteStatusView: View {
-    @State private var deleteAmount = 0.0
     @Environment(\.dismiss) private var dismiss
     @State private var showDetailStatus: Bool = false
+    @StateObject private var viewModel: DeleteStatusViewModel
+
+    init(filesToDelete: [FengNiaoKit.FileInfo]) {
+        _viewModel = StateObject(wrappedValue: DeleteStatusViewModel(unusedFilesToDelete: []))
+    }
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -34,8 +39,8 @@ struct DeleteStatusView: View {
             Spacer()
 
             ProgressView(
-                deleteAmount == 100 ? "Finished!" : "Deleting...",
-                value: deleteAmount,
+                viewModel.deleteAmount == 100 ? "Finished!" : "Deleting...",
+                value: viewModel.deleteAmount,
                 total: 100
             )
             .foregroundColor(Color(NSColor.secondaryLabelColor))
@@ -52,10 +57,13 @@ struct DeleteStatusView: View {
             }
         }
         .padding()
+        .onAppear {
+
+        }
     }
 }
 
 #Preview {
-    DeleteStatusView()
+    DeleteStatusView(filesToDelete: [])
         .frame(width: 500, height: 200)
 }

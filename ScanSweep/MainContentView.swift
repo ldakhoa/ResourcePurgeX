@@ -3,7 +3,7 @@ import FengNiaoKit
 import Cocoa
 
 struct MainContentView: View {
-    @StateObject private var viewModel: ViewModel = ViewModel()
+    @StateObject private var viewModel: MainContentViewModel = MainContentViewModel()
     @Environment(\.openWindow) var openWindow
 
     // MARK: Text Field
@@ -79,20 +79,21 @@ struct MainContentView: View {
                         showDeleteAlert.toggle()
                     }
                     .disabled(selected.isEmpty)
-                    .disabled(viewModel.isDeleting)
 
                     Button("Delete All") {
                         showDeleteAllAlert.toggle()
                     }
-                    .disabled(viewModel.isDeleting)
                 }
             }
         }
         .animation(.default, value: viewModel.contentState)
         .padding()
         .sheet(isPresented: $showDeleteStatusView) {
-            DeleteStatusView()
+            DeleteStatusView(filesToDelete: [])
                 .frame(width: 500, height: 200)
+                .onDisappear {
+                    fetchUnusedFiles()
+                }
         }
         .alert(
             deleteItemTitle,
@@ -128,7 +129,7 @@ struct MainContentView: View {
                 Button("Browse...") {
                     handleOpenFile()
                 }
-                .disabled(viewModel.isDeleting)
+                .disabled(viewModel.isLoading)
             }
             HStack {
                 Text("Exclude Paths")
@@ -161,17 +162,10 @@ struct MainContentView: View {
                         focusedField = .project
                         return
                     }
-
-                    viewModel.fetchUnusedFiles(
-                        from: projectPath,
-                        excludePaths: excludePaths,
-                        fileExtensions: fileExtensions,
-                        resourcesExtensions: resourcesExtensions
-                    )
+                    fetchUnusedFiles()
                     focusedField = nil
                 }
                 .disabled(viewModel.isLoading)
-                .disabled(viewModel.isDeleting)
                 .tint(Color.accentColor)
                 .buttonStyle(.borderedProminent)
             }
@@ -205,6 +199,15 @@ struct MainContentView: View {
                 projectPath = path
             }
         }
+    }
+
+    private func fetchUnusedFiles() {
+        viewModel.fetchUnusedFiles(
+            from: projectPath,
+            excludePaths: excludePaths,
+            fileExtensions: fileExtensions,
+            resourcesExtensions: resourcesExtensions
+        )
     }
 }
 
