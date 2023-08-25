@@ -301,7 +301,9 @@ enum Constants {
 
 // MARK: - Preview
 
-#Preview {
-    MainContentView()
-        .frame(width: 800, height: 800)
+struct MainContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        MainContentView()
+            .frame(width: 800, height: 800)
+    }
 }

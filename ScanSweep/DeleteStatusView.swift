@@ -31,7 +31,7 @@ struct DeleteStatusView: View {
             .onTapGesture {
                 showDetailStatus.toggle()
             }
-            .animation(.spring(duration: 0.15), value: showDetailStatus)
+            .animation(.spring, value: showDetailStatus)
 
             if showDetailStatus {
                 Text(viewModel.consoleStatus)
@@ -74,7 +74,9 @@ struct DeleteStatusView: View {
     }
 }
 
-#Preview {
-    DeleteStatusView(projectPath: "", filesToDelete: [])
-        .frame(width: 500, height: 200)
+struct DeleteStatusView_Previews: PreviewProvider {
+    static var previews: some View {
+        DeleteStatusView(projectPath: "", filesToDelete: [])
+            .frame(width: 500, height: 200)
+    }
 }
