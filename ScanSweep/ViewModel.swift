@@ -4,6 +4,8 @@ import SwiftUI
 final class ViewModel: ObservableObject {
     @Published var unusedFiles: [FengNiaoKit.FileInfo] = []
     @Published var contentState: ContentState = .idling
+    @Published var isDeleting: Bool = false
+    @Published var consoleStatus: String = ""
 
     var isLoading: Bool {
         contentState == .loading
@@ -43,7 +45,9 @@ final class ViewModel: ObservableObject {
     }
 
     func deleteAllItems() {
-        let (deleted, failed) = FengNiao.delete(self.unusedFiles)
+        isDeleting = true
+//        let (deleted, failed) = FengNiao.delete(self.unusedFiles)
+        // TODO: Handle error
     }
 }
 
@@ -52,6 +56,7 @@ extension ViewModel {
         case idling
         case loading
         case content
+        case deleting
         case error
     }
 }

@@ -2,9 +2,10 @@ import SwiftUI
 import FengNiaoKit
 import Cocoa
 
-struct ContentView: View {
+struct MainContentView: View {
     @StateObject private var viewModel: ViewModel = ViewModel()
-    
+    @Environment(\.openWindow) var openWindow
+
     // MARK: Text Field
     
     @State private var projectPath: String = ""
@@ -17,6 +18,7 @@ struct ContentView: View {
     
     @State private var showDeleteAllAlert: Bool = false
     @State private var showDeleteAlert: Bool = false
+    @State private var showDeleteStatusView: Bool = false
 
     // MARK: Table
 
@@ -77,15 +79,21 @@ struct ContentView: View {
                         showDeleteAlert.toggle()
                     }
                     .disabled(selected.isEmpty)
+                    .disabled(viewModel.isDeleting)
 
                     Button("Delete All") {
                         showDeleteAllAlert.toggle()
                     }
+                    .disabled(viewModel.isDeleting)
                 }
             }
         }
         .animation(.default, value: viewModel.contentState)
         .padding()
+        .sheet(isPresented: $showDeleteStatusView) {
+            DeleteStatusView()
+                .frame(width: 500, height: 200)
+        }
         .alert(
             deleteItemTitle,
             isPresented: $showDeleteAlert
@@ -100,7 +108,7 @@ struct ContentView: View {
             isPresented: $showDeleteAllAlert
         ) {
             Button("Delete All") {
-
+                showDeleteStatusView.toggle()
             }
             Button("Cancel", role: .cancel) {}
         } message: {
@@ -120,6 +128,7 @@ struct ContentView: View {
                 Button("Browse...") {
                     handleOpenFile()
                 }
+                .disabled(viewModel.isDeleting)
             }
             HStack {
                 Text("Exclude Paths")
@@ -162,6 +171,7 @@ struct ContentView: View {
                     focusedField = nil
                 }
                 .disabled(viewModel.isLoading)
+                .disabled(viewModel.isDeleting)
                 .tint(Color.accentColor)
                 .buttonStyle(.borderedProminent)
             }
@@ -200,7 +210,7 @@ struct ContentView: View {
 
 // MARK: - FocusedField
 
-extension ContentView {
+extension MainContentView {
     enum FocusedField {
         case project, excludes, files, resources
     }
@@ -216,6 +226,6 @@ enum Constants {
 // MARK: - Preview
 
 #Preview {
-    ContentView()
+    MainContentView()
         .frame(width: 800, height: 800)
 }
