@@ -18,6 +18,10 @@ struct MainContentView: View {
     
     @State private var showDeleteAllAlert: Bool = false
     @State private var showDeleteAlert: Bool = false
+    @State private var showErrorAlert: Bool = false
+
+    // MARK: Toggle View
+
     @State private var showDeleteAllView: Bool = false
     @State private var showDeleteView: Bool = false
 
@@ -110,6 +114,11 @@ struct MainContentView: View {
         }
         .animation(.default, value: viewModel.contentState)
         .padding()
+        .onChange(of: viewModel.contentState) { state in
+            if state == .error {
+                showErrorAlert.toggle()
+            }
+        }
         .sheet(isPresented: $showDeleteAllView) {
             deleteView(filesToDelete: viewModel.unusedFiles)
                 .onDisappear {
@@ -144,6 +153,23 @@ struct MainContentView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text("You can't undo this action.")
+        }
+        .alert(
+            "Something went wrong",
+            isPresented: $showErrorAlert
+        ) {
+            // Only OK action, no need to implement
+        } message: {
+            if let error = viewModel.error as? FengNiaoError {
+                switch error {
+                case .noResourceExtension:
+                    Text("You need to specify some resource extensions as search target.")
+                case .noFileExtension:
+                    Text("You need to specify some file extensions to search in.")
+                }
+            } else {
+                Text("Unknown Error: \(viewModel.error?.localizedDescription ?? "")")
+            }
         }
     }
 

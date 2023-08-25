@@ -4,6 +4,7 @@ import SwiftUI
 final class MainContentViewModel: ObservableObject {
     @Published var unusedFiles: [FengNiaoKit.FileInfo] = []
     @Published var contentState: ContentState = .idling
+    @Published var error: Error?
 
     var isLoading: Bool {
         contentState == .loading
@@ -37,6 +38,7 @@ final class MainContentViewModel: ObservableObject {
             } catch {
                 DispatchQueue.main.async {
                     self.contentState = .error
+                    self.error = error
                 }
             }
         }
@@ -48,7 +50,6 @@ extension MainContentViewModel {
         case idling
         case loading
         case content
-        case deleting
         case error
     }
 }
