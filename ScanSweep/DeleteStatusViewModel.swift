@@ -7,6 +7,8 @@ final class DeleteStatusViewModel: ObservableObject {
     @Published var unusedFilesToDelete: [FengNiaoKit.FileInfo] = []
     @Published var deleteAmount = 0.0
     @Published var consoleStatus: String = ""
+    @Published var showError: Bool = false
+    @Published var errorAlertMessage: String = ""
 
     private let projectPath: String
     private let queue = DispatchQueue(label: "com.ldakhoa.scansweep", attributes: .concurrent)
@@ -37,7 +39,13 @@ final class DeleteStatusViewModel: ObservableObject {
             }
 
             guard failed.isEmpty else {
-                print(failed)
+                self.showError.toggle()
+
+                self.errorAlertMessage = "\(self.unusedFilesToDelete.count - failed.count) unused files are deleted. But we encountered some error while deleting these \(failed.count) files:"
+                for (fileInfo, err) in failed {
+                    self.errorAlertMessage += "\(fileInfo.path.string) - \(err.localizedDescription)"
+                    self.errorAlertMessage += "\n"
+                }
                 return
             }
 

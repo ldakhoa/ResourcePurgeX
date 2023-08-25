@@ -65,6 +65,12 @@ struct DeleteStatusView: View {
         .onAppear {
             viewModel.deleteUnusedFiles()
         }
+        .alert("Something went wrong", isPresented: $viewModel.showError) {
+            // only need OK button
+        } message: {
+            Text(viewModel.errorAlertMessage)
+        }
+
     }
 }
 
