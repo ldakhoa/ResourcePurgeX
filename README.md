@@ -31,7 +31,7 @@ And waiting for dependencies to install, then press the run button or `cmd + r`
 
 ## Reliability
 
-ScanSweep depends on using [FengNiao](https://github.com/onevcat/FengNiao) as a backend, with [fork version](https://github.com/ldakhoa/FengNiao) to modify some pieces of code to support SwiftUI and app feature.
+ScanSweep depends on [FengNiao](https://github.com/onevcat/FengNiao) as a backend, with [fork version](https://github.com/ldakhoa/FengNiao) to modify some pieces of code to support SwiftUI and app feature.
 
 If you refer original and the command-line tool. Please visit [FengNiao](https://github.com/onevcat/FengNiao).
 
