@@ -4,8 +4,6 @@ import SwiftUI
 final class MainContentViewModel: ObservableObject {
     @Published var unusedFiles: [FengNiaoKit.FileInfo] = []
     @Published var contentState: ContentState = .idling
-    @Published var isDeleting: Bool = false
-    @Published var consoleStatus: String = ""
 
     var isLoading: Bool {
         contentState == .loading
@@ -42,12 +40,6 @@ final class MainContentViewModel: ObservableObject {
                 }
             }
         }
-    }
-
-    func deleteAllItems() {
-        isDeleting = true
-//        let (deleted, failed) = FengNiao.delete(self.unusedFiles)
-        // TODO: Handle error
     }
 }
 

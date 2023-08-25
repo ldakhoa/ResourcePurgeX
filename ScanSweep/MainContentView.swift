@@ -89,11 +89,14 @@ struct MainContentView: View {
         .animation(.default, value: viewModel.contentState)
         .padding()
         .sheet(isPresented: $showDeleteStatusView) {
-            DeleteStatusView(filesToDelete: [])
-                .frame(width: 500, height: 200)
-                .onDisappear {
-                    fetchUnusedFiles()
-                }
+            DeleteStatusView(
+                projectPath: self.projectPath,
+                filesToDelete: viewModel.unusedFiles
+            )
+            .frame(width: 500, height: 200)
+            .onDisappear {
+                fetchUnusedFiles()
+            }
         }
         .alert(
             deleteItemTitle,

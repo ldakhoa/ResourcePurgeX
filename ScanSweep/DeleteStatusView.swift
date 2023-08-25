@@ -3,11 +3,19 @@ import FengNiaoKit
 
 struct DeleteStatusView: View {
     @Environment(\.dismiss) private var dismiss
-    @State private var showDetailStatus: Bool = false
+    @State private var showDetailStatus: Bool = true
     @StateObject private var viewModel: DeleteStatusViewModel
 
-    init(filesToDelete: [FengNiaoKit.FileInfo]) {
-        _viewModel = StateObject(wrappedValue: DeleteStatusViewModel(unusedFilesToDelete: []))
+    init(
+        projectPath: String,
+        filesToDelete: [FengNiaoKit.FileInfo]
+    ) {
+        _viewModel = StateObject(
+            wrappedValue: DeleteStatusViewModel(
+                projectPath: projectPath,
+                unusedFilesToDelete: filesToDelete
+            )
+        )
     }
 
     var body: some View {
@@ -26,11 +34,7 @@ struct DeleteStatusView: View {
             .animation(.spring(duration: 0.15), value: showDetailStatus)
 
             if showDetailStatus {
-                Text("""
-            3 unused files are deleted
-            Now deleting unused reference in project.pbxproj...
-            Unused reference delete successfully
-            """)
+                Text(viewModel.consoleStatus)
                 .font(.subheadline)
                 .foregroundColor(Color(NSColor.secondaryLabelColor))
                 .animation(.spring(duration: 0.3), value: showDetailStatus)
@@ -52,18 +56,19 @@ struct DeleteStatusView: View {
                 Button("Done") {
                     dismiss()
                 }
+                .disabled(viewModel.deleteAmount < 100)
                 .tint(Color.accentColor)
                 .buttonStyle(.borderedProminent)
             }
         }
         .padding()
         .onAppear {
-
+            viewModel.deleteUnusedFiles()
         }
     }
 }
 
 #Preview {
-    DeleteStatusView(filesToDelete: [])
+    DeleteStatusView(projectPath: "", filesToDelete: [])
         .frame(width: 500, height: 200)
 }
