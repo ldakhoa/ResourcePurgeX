@@ -1,6 +1,7 @@
 import SwiftUI
 import FengNiaoKit
 import Cocoa
+import PathKit
 
 struct MainContentView: View {
     @StateObject private var viewModel: MainContentViewModel = MainContentViewModel()
@@ -69,9 +70,13 @@ struct MainContentView: View {
 
             if viewModel.contentState == .content {
                 HStack {
-                    let size = viewModel.unusedFiles
-                        .reduce(0) { $0 + $1.size }.fn_readableSize
-                    Text("\(viewModel.unusedFiles.count) files are found. Total Size: \(size)")
+                    if viewModel.unusedFiles.isEmpty {
+                        Text("🎉 You have no unused resources in path: \(Path(projectPath).absolute().string)")
+                    } else {
+                        let size = viewModel.unusedFiles
+                            .reduce(0) { $0 + $1.size }.fn_readableSize
+                        Text("\(viewModel.unusedFiles.count) files are found. Total Size: \(size)")
+                    }
 
                     Spacer()
 
