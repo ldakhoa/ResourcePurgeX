@@ -11,10 +11,6 @@ final class ViewModel: ObservableObject {
 
     private let queue = DispatchQueue(label: "com.ldakhoa.scansweep", attributes: .concurrent)
 
-    func sort() {
-        
-    }
-
     func fetchUnusedFiles(
         from path: String,
         excludePaths: String,
@@ -44,6 +40,10 @@ final class ViewModel: ObservableObject {
                 }
             }
         }
+    }
+
+    func deleteAllItems() {
+        let (deleted, failed) = FengNiao.delete(self.unusedFiles)
     }
 }
 

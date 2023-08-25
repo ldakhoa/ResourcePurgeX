@@ -15,6 +15,7 @@ struct ContentView: View {
 
     // MARK: Show alert
     
+    @State private var showDeleteAllAlert: Bool = false
     @State private var showDeleteAlert: Bool = false
 
     // MARK: Table
@@ -38,7 +39,11 @@ struct ContentView: View {
                 Text("Unused Files")
                     .font(.headline)
                 ZStack {
-                    Table(viewModel.unusedFiles, selection: $selected, sortOrder: $fileNameSortOrder) {
+                    Table(
+                        viewModel.unusedFiles,
+                        selection: $selected,
+                        sortOrder: $fileNameSortOrder
+                    ) {
                         TableColumn("File Name", value: \.fileName)
                             .width(min: 150, ideal: 150, max: 300)
                         TableColumn("Size", value: \.size) {
@@ -62,7 +67,8 @@ struct ContentView: View {
 
             if viewModel.contentState == .content {
                 HStack {
-                    let size = viewModel.unusedFiles.reduce(0) { $0 + $1.size }.fn_readableSize
+                    let size = viewModel.unusedFiles
+                        .reduce(0) { $0 + $1.size }.fn_readableSize
                     Text("\(viewModel.unusedFiles.count) files are found. Total Size: \(size)")
 
                     Spacer()
@@ -70,17 +76,35 @@ struct ContentView: View {
                     Button("Delete") {
                         showDeleteAlert.toggle()
                     }
+                    .disabled(selected.isEmpty)
 
                     Button("Delete All") {
+                        showDeleteAllAlert.toggle()
                     }
                 }
             }
         }
         .animation(.default, value: viewModel.contentState)
         .padding()
-        .alert("Delete file", isPresented: $showDeleteAlert) {
-            Button("Delete", role: .none) {}
+        .alert(
+            deleteItemTitle,
+            isPresented: $showDeleteAlert
+        ) {
+            Button("Delete", role: .destructive) {}
             Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("This item will be delete immediately.\nYou can't undo this action.")
+        }
+        .alert(
+            "Are you sure you want to delete all items?",
+            isPresented: $showDeleteAllAlert
+        ) {
+            Button("Delete All") {
+
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("You can't undo this action.")
         }
     }
 
@@ -147,6 +171,20 @@ struct ContentView: View {
         }
     }
 
+    // MARK: Side Effects - Private
+
+    private var deleteItemTitle: String {
+        if selected.count == 1 {
+            if let firstItem = selected.first,
+               let selectedUnusedFile = viewModel.unusedFiles.first(where: { $0.id == firstItem } ) {
+                return "Are you sure you want to delete \"\(selectedUnusedFile.fileName)\""
+            }
+        } else {
+            return "Are you sure you want to delete the \(selected.count) selected items?"
+        }
+        return ""
+    }
+
     private func handleOpenFile() {
         let panel = NSOpenPanel()
         panel.allowsMultipleSelection = false
@@ -160,14 +198,22 @@ struct ContentView: View {
     }
 }
 
-enum FocusedField {
-    case project, excludes, files, resources
+// MARK: - FocusedField
+
+extension ContentView {
+    enum FocusedField {
+        case project, excludes, files, resources
+    }
 }
+
+// MARK: - Constants
 
 enum Constants {
     static let defaultFileExtensions: String = "h m mm swift xib storyboard plist"
     static let defaultResourcesExtension: String = "imageset jpg png gif pdf heic"
 }
+
+// MARK: - Preview
 
 #Preview {
     ContentView()
