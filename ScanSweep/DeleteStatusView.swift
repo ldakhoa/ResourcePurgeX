@@ -31,13 +31,13 @@ struct DeleteStatusView: View {
             .onTapGesture {
                 showDetailStatus.toggle()
             }
-            .animation(.spring, value: showDetailStatus)
+            .animation(.spring(response: 0.15), value: showDetailStatus)
 
             if showDetailStatus {
                 Text(viewModel.consoleStatus)
                 .font(.subheadline)
                 .foregroundColor(Color(NSColor.secondaryLabelColor))
-                .animation(.spring(duration: 0.3), value: showDetailStatus)
+                .animation(.spring(response: 0.3), value: showDetailStatus)
             }
 
             Spacer()
