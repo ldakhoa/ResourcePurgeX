@@ -18,7 +18,8 @@ struct MainContentView: View {
     
     @State private var showDeleteAllAlert: Bool = false
     @State private var showDeleteAlert: Bool = false
-    @State private var showDeleteStatusView: Bool = false
+    @State private var showDeleteAllView: Bool = false
+    @State private var showDeleteView: Bool = false
 
     // MARK: Table
 
@@ -65,9 +66,12 @@ struct MainContentView: View {
                         }
                         .width(min: 50, max: 150)
                         TableColumn("Full Path", value: \.path.string)
-                    }.onChange(of: fileNameSortOrder) { sortOrder in
+                    }
+                    .animation(.default, value: viewModel.unusedFiles)
+                    .onChange(of: fileNameSortOrder) { sortOrder in
                         viewModel.unusedFiles.sort(using: sortOrder)
                     }
+
                     if viewModel.contentState == .loading {
                         VStack(spacing: 8) {
                             ProgressView()
@@ -104,21 +108,26 @@ struct MainContentView: View {
         }
         .animation(.default, value: viewModel.contentState)
         .padding()
-        .sheet(isPresented: $showDeleteStatusView) {
-            DeleteStatusView(
-                projectPath: self.projectPath,
-                filesToDelete: viewModel.unusedFiles
-            )
-            .frame(width: 500, height: 200)
-            .onDisappear {
-                fetchUnusedFiles()
-            }
+        .sheet(isPresented: $showDeleteAllView) {
+            deleteView(filesToDelete: viewModel.unusedFiles)
+                .onDisappear {
+                    fetchUnusedFiles()
+                }
+        }
+        .sheet(isPresented: $showDeleteView) {
+            let fileToDelete = viewModel.unusedFiles.filter { selected.contains($0.id) }
+            deleteView(filesToDelete: fileToDelete)
+                .onDisappear {
+                    viewModel.unusedFiles.removeAll(where: { fileToDelete.contains($0) } )
+                }
         }
         .alert(
             deleteItemTitle,
             isPresented: $showDeleteAlert
         ) {
-            Button("Delete", role: .destructive) {}
+            Button("Delete", role: .destructive) {
+                showDeleteView.toggle()
+            }
             Button("Cancel", role: .cancel) {}
         } message: {
             Text("This item will be delete immediately.\nYou can't undo this action.")
@@ -128,7 +137,7 @@ struct MainContentView: View {
             isPresented: $showDeleteAllAlert
         ) {
             Button("Delete All") {
-                showDeleteStatusView.toggle()
+                showDeleteAllView.toggle()
             }
             Button("Cancel", role: .cancel) {}
         } message: {
@@ -196,6 +205,15 @@ struct MainContentView: View {
         }
     }
 
+    @ViewBuilder
+    func deleteView(filesToDelete: [FengNiaoKit.FileInfo]) -> some View {
+        DeleteStatusView(
+            projectPath: self.projectPath,
+            filesToDelete: filesToDelete
+        )
+        .frame(width: 500, height: 200)
+    }
+
     // MARK: Side Effects - Private
 
     private var deleteItemTitle: String {
@@ -247,7 +265,6 @@ extension MainContentView {
 // MARK: - Constants
 
 enum Constants {
-    static let defaultFileExtensions: String = "h m mm swift xib storyboard plist"
     static let defaultResourcesExtension: String = "imageset jpg png gif pdf heic"
 }
 
