@@ -11,7 +11,6 @@ struct MainContentView: View {
     
     @State private var projectPath: String = ""
     @State private var excludePaths: String = ""
-    @State private var fileExtensions: String = Constants.defaultFileExtensions
     @State private var resourcesExtensions: String = Constants.defaultResourcesExtension
     @FocusState private var focusedField: FocusedField?
 
@@ -30,7 +29,19 @@ struct MainContentView: View {
         KeyPathComparator(\FengNiaoKit.FileInfo.path)
     ]
 
-    // MARK: View
+    // MARK: Checkbox
+
+    @State private var toggleStates = [
+        ToggleState(fileExtension: "h", isOn: true),
+        ToggleState(fileExtension: "m", isOn: true),
+        ToggleState(fileExtension: "mm", isOn: true),
+        ToggleState(fileExtension: "swift", isOn: true),
+        ToggleState(fileExtension: "xib", isOn: true),
+        ToggleState(fileExtension: "storyboard", isOn: true),
+        ToggleState(fileExtension: "plist", isOn: true)
+    ]
+
+    // MARK: - View
 
     var body: some View {
         VStack {
@@ -130,6 +141,7 @@ struct MainContentView: View {
         VStack(alignment: .leading) {
             Text("Configurations")
                 .font(.headline)
+
             HStack {
                 Text("Project Path")
                 TextField("Root path of your Xcode project", text: $projectPath)
@@ -139,6 +151,7 @@ struct MainContentView: View {
                 }
                 .disabled(viewModel.isLoading)
             }
+
             HStack {
                 Text("Exclude Paths")
                 TextField(
@@ -147,14 +160,14 @@ struct MainContentView: View {
                 )
                 .focused($focusedField, equals: .excludes)
             }
+
             HStack {
                 Text("File Extensions")
-                TextField(
-                    "Types of files, separates with space. Default is 'm mm swift xib storyboard'",
-                    text: $fileExtensions
-                )
-                .focused($focusedField, equals: .files)
+                ForEach(toggleStates.indices, id: \.self) { index in
+                    Toggle(toggleStates[index].fileExtension, isOn: $toggleStates[index].isOn)
+                }
             }
+
             HStack {
                 Text("Resources Extensions")
                 TextField(
@@ -210,6 +223,10 @@ struct MainContentView: View {
     }
 
     private func fetchUnusedFiles() {
+        let fileExtensions: [String] = toggleStates
+            .filter { $0.isOn }
+            .map { $0.fileExtension }
+
         viewModel.fetchUnusedFiles(
             from: projectPath,
             excludePaths: excludePaths,
@@ -223,7 +240,7 @@ struct MainContentView: View {
 
 extension MainContentView {
     enum FocusedField {
-        case project, excludes, files, resources
+        case project, excludes, resources
     }
 }
 

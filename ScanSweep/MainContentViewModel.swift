@@ -14,7 +14,7 @@ final class MainContentViewModel: ObservableObject {
     func fetchUnusedFiles(
         from path: String,
         excludePaths: String,
-        fileExtensions: String,
+        fileExtensions: [String],
         resourcesExtensions: String
     ) {
         contentState = .loading
@@ -24,7 +24,7 @@ final class MainContentViewModel: ObservableObject {
                 projectPath: path,
                 excludedPaths: [],
                 resourceExtensions: resourcesExtensions.split(separator: " ").map(String.init),
-                searchInFileExtensions: fileExtensions.split(separator: " ").map(String.init)
+                searchInFileExtensions: fileExtensions
             )
 
             do {
