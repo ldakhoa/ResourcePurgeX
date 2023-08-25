@@ -99,10 +99,12 @@ struct MainContentView: View {
                         showDeleteAlert.toggle()
                     }
                     .disabled(selected.isEmpty)
+                    .disabled(viewModel.unusedFiles.isEmpty)
 
                     Button("Delete All") {
                         showDeleteAllAlert.toggle()
                     }
+                    .disabled(viewModel.unusedFiles.isEmpty)
                 }
             }
         }
