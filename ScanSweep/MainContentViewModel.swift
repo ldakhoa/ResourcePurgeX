@@ -23,7 +23,7 @@ final class MainContentViewModel: ObservableObject {
         queue.async {
             let fengNiao = FengNiao(
                 projectPath: path,
-                excludedPaths: [],
+                excludedPaths: excludePaths.split(separator: " ").map(String.init),
                 resourceExtensions: resourcesExtensions.split(separator: " ").map(String.init),
                 searchInFileExtensions: fileExtensions
             )
