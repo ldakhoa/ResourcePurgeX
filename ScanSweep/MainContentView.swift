@@ -219,12 +219,28 @@ struct MainContentView: View {
                     selection: $selected,
                     sortOrder: $fileNameSortOrder
                 ) {
-                    TableColumn("File Name", value: \.fileName)
-                        .width(min: 150, ideal: 150, max: 300)
+                    TableColumn("File Name", value: \.fileName) { file in
+                        Text(file.fileName)
+                            .contentShape(Rectangle())
+                            .help(file.fileName)
+                            .contextMenu {
+                                Button("Copy") {
+                                    let pasteboard = NSPasteboard.general
+                                    pasteboard.declareTypes([.string], owner: nil)
+                                    pasteboard.setString(file.fileName, forType: .string)
+                                }
+                                Button("Show in Finder") {
+                                    NSWorkspace.shared.open(URL(fileURLWithPath: file.path.string))
+                                }
+                            }
+                    }
+                    .width(min: 150, ideal: 150, max: 300)
+
                     TableColumn("Size", value: \.size) {
                         Text($0.size.fn_readableSize)
                     }
                     .width(min: 50, max: 150)
+
                     TableColumn("Full Path", value: \.path.string) { file in
                         HStack {
                             Text(file.path.string)
@@ -243,7 +259,9 @@ struct MainContentView: View {
                                 pasteboard.declareTypes([.string], owner: nil)
                                 pasteboard.setString(file.path.string, forType: .string)
                             }
-                            Button("Show in Finder") {}
+                            Button("Show in Finder") {
+                                NSWorkspace.shared.open(URL(fileURLWithPath: file.path.string))
+                            }
                         }
                         .help(file.path.string)
                     }
