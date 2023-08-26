@@ -2,7 +2,7 @@
 
 A Mac App to find and delete unused image resources from your Xcode project.
 
-It will the scan current folder and all its subfolders to find unused images, then ask whether you want to delete them.
+It will scan the current folder and all its subfolders to find unused images, then ask whether you want to delete them.
 
 ## Installation
 
