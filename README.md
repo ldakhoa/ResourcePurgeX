@@ -6,7 +6,9 @@ It will scan the current folder and all its subfolders to find unused images, th
 
 ## Installation
 
-Download file
+Download the `ScanSweep.zip` file from [Releases](https://github.com/ldakhoa/ScanSweep/releases).
+
+ScanSweep release version is always notarized by Apple before publishing to GitHub, so you can use it with peace of mind.
 
 Or build and run the project directly by
 ```bash
