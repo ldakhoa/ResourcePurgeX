@@ -2,10 +2,10 @@ import SwiftUI
 import FengNiaoKit
 import Cocoa
 import PathKit
+import QuickLook
 
 struct MainContentView: View {
     @StateObject private var viewModel: MainContentViewModel = MainContentViewModel()
-    @Environment(\.openWindow) var openWindow
 
     // MARK: Text Field
     
@@ -33,6 +33,7 @@ struct MainContentView: View {
         KeyPathComparator(\FengNiaoKit.FileInfo.size),
         KeyPathComparator(\FengNiaoKit.FileInfo.path)
     ]
+    @State private var previewImageUrl: URL?
 
     // MARK: Checkbox
 
@@ -54,36 +55,7 @@ struct MainContentView: View {
 
             Divider()
 
-            VStack(alignment: .leading) {
-                Text("Unused Files")
-                    .font(.headline)
-                ZStack {
-                    Table(
-                        viewModel.unusedFiles,
-                        selection: $selected,
-                        sortOrder: $fileNameSortOrder
-                    ) {
-                        TableColumn("File Name", value: \.fileName)
-                            .width(min: 150, ideal: 150, max: 300)
-                        TableColumn("Size", value: \.size) {
-                            Text($0.size.fn_readableSize)
-                        }
-                        .width(min: 50, max: 150)
-                        TableColumn("Full Path", value: \.path.string)
-                    }
-                    .animation(.default, value: viewModel.unusedFiles)
-                    .onChange(of: fileNameSortOrder) { sortOrder in
-                        viewModel.unusedFiles.sort(using: sortOrder)
-                    }
-
-                    if viewModel.contentState == .loading {
-                        VStack(spacing: 8) {
-                            ProgressView()
-                            Text("Searching unused file. This may take a while...")
-                        }
-                    }
-                }
-            }
+            unusedResourcesTable
 
             Spacer(minLength: 16)
 
@@ -233,6 +205,73 @@ struct MainContentView: View {
         }
         .onTapGesture {
             focusedField = nil
+        }
+    }
+
+    @ViewBuilder
+    private var unusedResourcesTable: some View {
+        VStack(alignment: .leading) {
+            Text("Unused Files")
+                .font(.headline)
+            ZStack {
+                Table(
+                    viewModel.unusedFiles,
+                    selection: $selected,
+                    sortOrder: $fileNameSortOrder
+                ) {
+                    TableColumn("File Name", value: \.fileName)
+                        .width(min: 150, ideal: 150, max: 300)
+                    TableColumn("Size", value: \.size) {
+                        Text($0.size.fn_readableSize)
+                    }
+                    .width(min: 50, max: 150)
+                    TableColumn("Full Path", value: \.path.string) { file in
+                        HStack {
+                            Text(file.path.string)
+                            Button {
+                                previewImageUrl = URL(fileURLWithPath: file.path.string)
+                            } label: {
+                                Image(systemName: "eye")
+                            }
+                            .keyboardShortcut(.space)
+                        }
+                        .quickLookPreview($previewImageUrl)
+                        .contentShape(Rectangle())
+                        .contextMenu {
+                            Button("Copy") {
+                                let pasteboard = NSPasteboard.general
+                                pasteboard.declareTypes([.string], owner: nil)
+                                pasteboard.setString(file.path.string, forType: .string)
+                            }
+                            Button("Show in Finder") {}
+                        }
+                        .help(file.path.string)
+                    }
+                }
+                .animation(.default, value: viewModel.unusedFiles)
+                .onChange(of: fileNameSortOrder) { sortOrder in
+                    viewModel.unusedFiles.sort(using: sortOrder)
+                }
+                .onAppear {
+                    NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
+                        if event.keyCode == 49 {
+                            if let selectedUnusedFile = viewModel.unusedFiles.first(where: { $0.id == selected.first } ) {
+                                previewImageUrl = URL(fileURLWithPath: selectedUnusedFile.path.string)
+                            }
+
+                            return nil // Discard the event
+                        }
+                        return event
+                    }
+                }
+
+                if viewModel.contentState == .loading {
+                    VStack(spacing: 8) {
+                        ProgressView()
+                        Text("Searching unused file. This may take a while...")
+                    }
+                }
+            }
         }
     }
 
