@@ -16,6 +16,7 @@
 		6AAE8DAB2A987FB600F9C33C /* DeleteStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE8DAA2A987FB600F9C33C /* DeleteStatusView.swift */; };
 		6AAE8DAD2A988F4400F9C33C /* DeleteStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE8DAC2A988F4400F9C33C /* DeleteStatusViewModel.swift */; };
 		6AAE8DAF2A9916EA00F9C33C /* ToggleState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE8DAE2A9916EA00F9C33C /* ToggleState.swift */; };
+		6AFC3E122A9A61BD003B27F8 /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC3E112A9A61BD003B27F8 /* ExportView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		6AAE8DAC2A988F4400F9C33C /* DeleteStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStatusViewModel.swift; sourceTree = "<group>"; };
 		6AAE8DAE2A9916EA00F9C33C /* ToggleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleState.swift; sourceTree = "<group>"; };
 		6AF7C3D82A99D1A9007386DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6AFC3E112A9A61BD003B27F8 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				6AF7C3D82A99D1A9007386DC /* Info.plist */,
 				6AAE8D8F2A978E0D00F9C33C /* ScanSweepApp.swift */,
 				6AAE8D912A978E0D00F9C33C /* MainContentView.swift */,
+				6AFC3E112A9A61BD003B27F8 /* ExportView.swift */,
 				6AAE8DAE2A9916EA00F9C33C /* ToggleState.swift */,
 				6AAE8DA52A97B57300F9C33C /* MainContentViewModel.swift */,
 				6AAE8DAA2A987FB600F9C33C /* DeleteStatusView.swift */,
@@ -167,6 +170,7 @@
 				6AAE8DAF2A9916EA00F9C33C /* ToggleState.swift in Sources */,
 				6AAE8D902A978E0D00F9C33C /* ScanSweepApp.swift in Sources */,
 				6AAE8DAB2A987FB600F9C33C /* DeleteStatusView.swift in Sources */,
+				6AFC3E122A9A61BD003B27F8 /* ExportView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

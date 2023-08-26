@@ -24,6 +24,7 @@ struct MainContentView: View {
 
     @State private var showDeleteAllView: Bool = false
     @State private var showDeleteView: Bool = false
+    @State private var showExportView: Bool = false
 
     // MARK: Table
 
@@ -81,6 +82,11 @@ struct MainContentView: View {
                         showDeleteAllAlert.toggle()
                     }
                     .disabled(viewModel.unusedFiles.isEmpty)
+
+                    Button("Export CSV") {
+                        showExportView.toggle()
+                    }
+                    .disabled(viewModel.unusedFiles.isEmpty)
                 }
             }
         }
@@ -103,6 +109,10 @@ struct MainContentView: View {
                 .onDisappear {
                     viewModel.unusedFiles.removeAll(where: { fileToDelete.contains($0) } )
                 }
+        }
+        .sheet(isPresented: $showExportView) {
+            ExportView(unusedFiles: viewModel.unusedFiles)
+                .frame(minWidth: 500, minHeight: 300, idealHeight: 500)
         }
         .alert(
             deleteItemTitle,
