@@ -29,6 +29,7 @@
 		6AAE8DAA2A987FB600F9C33C /* DeleteStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStatusView.swift; sourceTree = "<group>"; };
 		6AAE8DAC2A988F4400F9C33C /* DeleteStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStatusViewModel.swift; sourceTree = "<group>"; };
 		6AAE8DAE2A9916EA00F9C33C /* ToggleState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleState.swift; sourceTree = "<group>"; };
+		6AF7C3D82A99D1A9007386DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +63,7 @@
 		6AAE8D8E2A978E0D00F9C33C /* ScanSweep */ = {
 			isa = PBXGroup;
 			children = (
+				6AF7C3D82A99D1A9007386DC /* Info.plist */,
 				6AAE8D8F2A978E0D00F9C33C /* ScanSweepApp.swift */,
 				6AAE8D912A978E0D00F9C33C /* MainContentView.swift */,
 				6AAE8DAE2A9916EA00F9C33C /* ToggleState.swift */,
@@ -302,6 +304,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScanSweep/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -330,6 +333,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScanSweep/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
