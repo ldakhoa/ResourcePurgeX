@@ -108,6 +108,7 @@ struct MainContentView: View {
             deleteView(filesToDelete: fileToDelete)
                 .onDisappear {
                     viewModel.unusedFiles.removeAll(where: { fileToDelete.contains($0) } )
+                    selected = []
                 }
         }
         .sheet(isPresented: $showExportView) {
