@@ -283,7 +283,7 @@ struct MainContentView: View {
                 }
                 .onAppear {
                     NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
-                        if event.keyCode == 49 {
+                        if event.keyCode == 49 && focusedField != .excludes && focusedField != .project && focusedField != .resources {
                             if let selectedUnusedFile = viewModel.unusedFiles.first(where: { $0.id == selected.first } ) {
                                 previewImageUrl = URL(fileURLWithPath: selectedUnusedFile.path.string)
                             }
