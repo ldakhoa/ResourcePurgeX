@@ -88,6 +88,15 @@ struct MainContentView: View {
                     }
                     .disabled(viewModel.unusedFiles.isEmpty)
                 }
+            } else if viewModel.contentState == .loading {
+                HStack {
+                    HStack(alignment: .center, spacing: 8) {
+                        ProgressView()
+                            .controlSize(.small)
+                        Text("Searching unused file. This may take a while...")
+                    }
+                    Spacer()
+                }
             }
         }
         .animation(.default, value: viewModel.contentState)
@@ -224,7 +233,7 @@ struct MainContentView: View {
         VStack(alignment: .leading) {
             Text("Unused Files")
                 .font(.headline)
-            ZStack {
+//            ZStack {
                 Table(
                     viewModel.unusedFiles,
                     selection: $selected,
@@ -294,13 +303,13 @@ struct MainContentView: View {
                     }
                 }
 
-                if viewModel.contentState == .loading {
-                    VStack(spacing: 8) {
-                        ProgressView()
-                        Text("Searching unused file. This may take a while...")
-                    }
-                }
-            }
+//                if viewModel.contentState == .loading {
+//                    VStack(spacing: 8) {
+//                        ProgressView()
+//                        Text("Searching unused file. This may take a while...")
+//                    }
+//                }
+//            }
         }
     }
 

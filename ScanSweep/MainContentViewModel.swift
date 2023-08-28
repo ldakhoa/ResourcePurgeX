@@ -3,8 +3,10 @@ import SwiftUI
 
 final class MainContentViewModel: ObservableObject {
     @Published var unusedFiles: [FengNiaoKit.FileInfo] = []
-    @Published var contentState: ContentState = .idling
-    @Published var error: Error?
+    @Published private(set) var contentState: ContentState = .idling
+    @Published private(set) var error: Error?
+    /// Scanning project path to display info in result text.
+    private(set) var scanningProjectPath: String = ""
 
     var isLoading: Bool {
         contentState == .loading
@@ -20,6 +22,7 @@ final class MainContentViewModel: ObservableObject {
     ) {
         contentState = .loading
 
+        scanningProjectPath = path
         queue.async {
             let fengNiao = FengNiao(
                 projectPath: path,
