@@ -233,83 +233,74 @@ struct MainContentView: View {
         VStack(alignment: .leading) {
             Text("Unused Files")
                 .font(.headline)
-//            ZStack {
-                Table(
-                    viewModel.unusedFiles,
-                    selection: $selected,
-                    sortOrder: $fileNameSortOrder
-                ) {
-                    TableColumn("File Name", value: \.fileName) { file in
-                        Text(file.fileName)
-                            .contentShape(Rectangle())
-                            .help(file.fileName)
-                            .contextMenu {
-                                Button("Copy") {
-                                    let pasteboard = NSPasteboard.general
-                                    pasteboard.declareTypes([.string], owner: nil)
-                                    pasteboard.setString(file.fileName, forType: .string)
-                                }
-                                Button("Show in Finder") {
-                                    NSWorkspace.shared.open(URL(fileURLWithPath: file.path.string))
-                                }
-                            }
-                    }
-                    .width(min: 150, ideal: 150, max: 300)
-
-                    TableColumn("Size", value: \.size) {
-                        Text($0.size.fn_readableSize)
-                    }
-                    .width(min: 50, max: 150)
-
-                    TableColumn("Full Path", value: \.path.string) { file in
-                        HStack {
-                            Text(file.path.string)
-                            Button {
-                                previewImageUrl = URL(fileURLWithPath: file.path.string)
-                            } label: {
-                                Image(systemName: "eye")
-                            }
-                            .keyboardShortcut(.space)
-                        }
-                        .quickLookPreview($previewImageUrl)
+            Table(
+                viewModel.unusedFiles,
+                selection: $selected,
+                sortOrder: $fileNameSortOrder
+            ) {
+                TableColumn("File Name", value: \.fileName) { file in
+                    Text(file.fileName)
                         .contentShape(Rectangle())
+                        .help(file.fileName)
                         .contextMenu {
                             Button("Copy") {
                                 let pasteboard = NSPasteboard.general
                                 pasteboard.declareTypes([.string], owner: nil)
-                                pasteboard.setString(file.path.string, forType: .string)
+                                pasteboard.setString(file.fileName, forType: .string)
                             }
                             Button("Show in Finder") {
                                 NSWorkspace.shared.open(URL(fileURLWithPath: file.path.string))
                             }
                         }
-                        .help(file.path.string)
-                    }
                 }
-                .animation(.default, value: viewModel.unusedFiles)
-                .onChange(of: fileNameSortOrder) { sortOrder in
-                    viewModel.unusedFiles.sort(using: sortOrder)
-                }
-                .onAppear {
-                    NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
-                        if event.keyCode == 49 && focusedField != .excludes && focusedField != .project && focusedField != .resources {
-                            if let selectedUnusedFile = viewModel.unusedFiles.first(where: { $0.id == selected.first } ) {
-                                previewImageUrl = URL(fileURLWithPath: selectedUnusedFile.path.string)
-                            }
+                .width(min: 150, ideal: 150, max: 300)
 
-                            return nil // Discard the event
+                TableColumn("Size", value: \.size) {
+                    Text($0.size.fn_readableSize)
+                }
+                .width(min: 50, max: 150)
+
+                TableColumn("Full Path", value: \.path.string) { file in
+                    HStack {
+                        Text(file.path.string)
+                        Button {
+                            previewImageUrl = URL(fileURLWithPath: file.path.string)
+                        } label: {
+                            Image(systemName: "eye")
                         }
-                        return event
+                        .keyboardShortcut(.space)
                     }
+                    .quickLookPreview($previewImageUrl)
+                    .contentShape(Rectangle())
+                    .contextMenu {
+                        Button("Copy") {
+                            let pasteboard = NSPasteboard.general
+                            pasteboard.declareTypes([.string], owner: nil)
+                            pasteboard.setString(file.path.string, forType: .string)
+                        }
+                        Button("Show in Finder") {
+                            NSWorkspace.shared.open(URL(fileURLWithPath: file.path.string))
+                        }
+                    }
+                    .help(file.path.string)
                 }
+            }
+            .animation(.default, value: viewModel.unusedFiles)
+            .onChange(of: fileNameSortOrder) { sortOrder in
+                viewModel.unusedFiles.sort(using: sortOrder)
+            }
+            .onAppear {
+                NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
+                    if event.keyCode == 49 && focusedField != .excludes && focusedField != .project && focusedField != .resources {
+                        if let selectedUnusedFile = viewModel.unusedFiles.first(where: { $0.id == selected.first } ) {
+                            previewImageUrl = URL(fileURLWithPath: selectedUnusedFile.path.string)
+                        }
 
-//                if viewModel.contentState == .loading {
-//                    VStack(spacing: 8) {
-//                        ProgressView()
-//                        Text("Searching unused file. This may take a while...")
-//                    }
-//                }
-//            }
+                        return nil // Discard the event
+                    }
+                    return event
+                }
+            }
         }
     }
 
