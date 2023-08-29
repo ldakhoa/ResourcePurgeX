@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ldakhoa/FengNiao/",
       "state" : {
-        "revision" : "5d827d8b95e6ec1dc4d097c7929ae9e7783d370e",
-        "version" : "1.0.1"
+        "revision" : "56fcc91f3740d4bf9048cc20f8e1a56783a9ad96",
+        "version" : "1.0.2"
       }
     },
     {

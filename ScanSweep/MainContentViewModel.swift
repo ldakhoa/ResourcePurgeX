@@ -36,7 +36,7 @@ final class MainContentViewModel: ObservableObject {
 
                 DispatchQueue.main.async {
                     self.unusedFiles = files
-                    self.contentState = .content
+                    self.contentState = .content(type: .unused)
                 }
             } catch {
                 DispatchQueue.main.async {
@@ -46,13 +46,46 @@ final class MainContentViewModel: ObservableObject {
             }
         }
     }
+
+    func fetchAllResourceFiles(
+        from path: String,
+        excludePaths: String,
+        fileExtensions: [String],
+        resourcesExtensions: String
+    ) {
+        contentState = .loading
+
+        scanningProjectPath = path
+        queue.async {
+            let fengNiao = FengNiao(
+                projectPath: path,
+                excludedPaths: excludePaths.split(separator: " ").map(String.init),
+                resourceExtensions: resourcesExtensions.split(separator: " ").map(String.init),
+                searchInFileExtensions: fileExtensions
+            )
+
+            let files = fengNiao.allResourceFiles()
+                .flatMap { $0.value }
+                .map(FileInfo.init)
+
+            DispatchQueue.main.async {
+                self.unusedFiles = files
+                self.contentState = .content(type: .all)
+            }
+        }
+    }
 }
 
 extension MainContentViewModel {
-    enum ContentState {
+    enum ContentState: Equatable {
         case idling
         case loading
-        case content
+        case content(type: ContentType)
         case error
+    }
+
+    enum ContentType {
+        case unused
+        case all
     }
 }

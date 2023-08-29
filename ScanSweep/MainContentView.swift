@@ -60,7 +60,7 @@ struct MainContentView: View {
 
             Spacer(minLength: 16)
 
-            if viewModel.contentState == .content {
+            if viewModel.contentState == .content(type: .unused) || viewModel.contentState == .content(type: .all) {
                 HStack {
                     if viewModel.unusedFiles.isEmpty {
                         Text("🎉 You have no unused resources in path: \(Path(projectPath).absolute().string)")
@@ -221,6 +221,20 @@ struct MainContentView: View {
                 .disabled(viewModel.isLoading)
                 .tint(Color.accentColor)
                 .buttonStyle(.borderedProminent)
+                .contextMenu {
+                    Button("List All Resource Files...") {
+                        let fileExtensions: [String] = toggleStates
+                            .filter { $0.isOn }
+                            .map { $0.fileExtension }
+
+                        viewModel.fetchAllResourceFiles(
+                            from: projectPath,
+                            excludePaths: excludePaths,
+                            fileExtensions: fileExtensions,
+                            resourcesExtensions: resourcesExtensions
+                        )
+                    }
+                }
             }
         }
         .onTapGesture {
@@ -231,7 +245,7 @@ struct MainContentView: View {
     @ViewBuilder
     private var unusedResourcesTable: some View {
         VStack(alignment: .leading) {
-            Text("Unused Files")
+            Text(viewModel.contentState == .content(type: .unused) ? "Unused Files" : "All Resource Files")
                 .font(.headline)
             Table(
                 viewModel.unusedFiles,
