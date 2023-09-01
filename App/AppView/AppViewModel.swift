@@ -1,7 +1,7 @@
 import FengNiaoKit
 import SwiftUI
 
-final class MainContentViewModel: ObservableObject {
+final class AppViewModel: ObservableObject {
     @Published var unusedFiles: [FengNiaoKit.FileInfo] = []
     @Published private(set) var contentState: ContentState = .idling
     @Published private(set) var error: Error?
@@ -76,7 +76,7 @@ final class MainContentViewModel: ObservableObject {
     }
 }
 
-extension MainContentViewModel {
+extension AppViewModel {
     enum ContentState: Equatable {
         case idling
         case loading

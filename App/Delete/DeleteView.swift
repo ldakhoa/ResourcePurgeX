@@ -1,7 +1,7 @@
 import SwiftUI
 import FengNiaoKit
 
-struct DeleteStatusView: View {
+struct DeleteView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showDetailStatus: Bool = true
     @StateObject private var viewModel: DeleteStatusViewModel
@@ -76,7 +76,7 @@ struct DeleteStatusView: View {
 
 struct DeleteStatusView_Previews: PreviewProvider {
     static var previews: some View {
-        DeleteStatusView(projectPath: "", filesToDelete: [])
+        DeleteView(projectPath: "", filesToDelete: [])
             .frame(width: 500, height: 200)
     }
 }

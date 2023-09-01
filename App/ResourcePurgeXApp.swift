@@ -4,7 +4,7 @@ import SwiftUI
 struct ResourcePurgeXApp: App {
     var body: some Scene {
         WindowGroup {
-            MainContentView()
+            AppView()
                 .frame(minWidth: 300, idealWidth: 650, minHeight: 300)
         }
     }

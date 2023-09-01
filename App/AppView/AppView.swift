@@ -4,8 +4,8 @@ import Cocoa
 import PathKit
 import QuickLook
 
-struct MainContentView: View {
-    @StateObject private var viewModel: MainContentViewModel = MainContentViewModel()
+struct AppView: View {
+    @StateObject private var viewModel: AppViewModel = AppViewModel()
 
     // MARK: Text Field
     
@@ -320,7 +320,7 @@ struct MainContentView: View {
 
     @ViewBuilder
     func deleteView(filesToDelete: [FengNiaoKit.FileInfo]) -> some View {
-        DeleteStatusView(
+        DeleteView(
             projectPath: self.projectPath,
             filesToDelete: filesToDelete
         )
@@ -369,7 +369,7 @@ struct MainContentView: View {
 
 // MARK: - FocusedField
 
-extension MainContentView {
+extension AppView {
     enum FocusedField {
         case project, excludes, resources
     }
@@ -385,7 +385,7 @@ enum Constants {
 
 struct MainContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainContentView()
+        AppView()
             .frame(width: 800, height: 800)
     }
 }

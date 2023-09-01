@@ -42,5 +42,6 @@ If you refer original and the command-line tool. Please visit [FengNiao](https:/
 ## License
 
 ResourcePurgeX is licensed under MIT so that you can do whatever you want with this source code.
+However, **please do not ship this app under your own account.**
 
-However, please do not ship this app under your own account.
+ResourcePurgeX app icon is using <a href="https://www.freepik.com/icon/data-cleansing_6993283#fromView=search&term=clean+code&page=1&position=1">Icon by bsd</a>.
