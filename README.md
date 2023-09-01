@@ -1,4 +1,4 @@
-# ScanSweep
+# ResourcePurgeX
 
 A Mac App to find and delete unused image resources from your Xcode project.
 
@@ -6,15 +6,15 @@ It will scan the current folder and all its subfolders to find unused images, th
 
 ## Installation
 
-Download the `ScanSweep.zip` file from [Releases](https://github.com/ldakhoa/ScanSweep/releases).
+Download the `ResourcePurgeX.zip` file from [Releases](https://github.com/ldakhoa/ResourcePurgeX/releases).
 
-ScanSweep release version is always notarized by Apple before publishing to GitHub, so you can use it with peace of mind.
+ResourcePurgeX release version is always notarized by Apple before publishing to GitHub, so you can use it with peace of mind.
 
 Or build and run the project directly by
 ```bash
-git clone https://github.com/ldakhoa/ScanSweep.git
-cd ScanSweep
-xed . # Open ScanSweep.xcodeproj
+git clone https://github.com/ldakhoa/ResourcePurgeX.git
+cd ResourcePurgeX
+xed . # Open ResourcePurgeX.xcodeproj
 ```
 
 And waiting for dependencies to install, then press the run button or `cmd + r`
@@ -35,12 +35,12 @@ And waiting for dependencies to install, then press the run button or `cmd + r`
 
 It is recommended to review your assets before deleting them. An example of a common situation is when assets are marked as unused even though they are actually utilized. This can occur when you create a reference to a resource depending on specific conditions.
 
-ScanSweep depends on [FengNiao](https://github.com/onevcat/FengNiao) as a backend, with [fork version](https://github.com/ldakhoa/FengNiao) to modify some pieces of code to support SwiftUI and app feature.
+ResourcePurgeX depends on [FengNiao](https://github.com/onevcat/FengNiao) as a backend, with [fork version](https://github.com/ldakhoa/FengNiao) to modify some pieces of code to support SwiftUI and app feature.
 
 If you refer original and the command-line tool. Please visit [FengNiao](https://github.com/onevcat/FengNiao).
 
 ## License
 
-ScanSweep is licensed under MIT so that you can do whatever you want with this source code.
+ResourcePurgeX is licensed under MIT so that you can do whatever you want with this source code.
 
 However, please do not ship this app under your own account.
