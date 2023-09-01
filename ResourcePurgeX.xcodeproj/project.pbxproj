@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6AAE8D902A978E0D00F9C33C /* ScanSweepApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE8D8F2A978E0D00F9C33C /* ScanSweepApp.swift */; };
+		6AAE8D902A978E0D00F9C33C /* ResourcePurgeXApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE8D8F2A978E0D00F9C33C /* ResourcePurgeXApp.swift */; };
 		6AAE8D922A978E0D00F9C33C /* MainContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAE8D912A978E0D00F9C33C /* MainContentView.swift */; };
 		6AAE8D942A978E1000F9C33C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AAE8D932A978E1000F9C33C /* Assets.xcassets */; };
 		6AAE8D972A978E1000F9C33C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AAE8D962A978E1000F9C33C /* Preview Assets.xcassets */; };
@@ -20,12 +20,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6AAE8D8C2A978E0D00F9C33C /* ScanSweep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScanSweep.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6AAE8D8F2A978E0D00F9C33C /* ScanSweepApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanSweepApp.swift; sourceTree = "<group>"; };
+		6AAE8D8C2A978E0D00F9C33C /* ResourcePurgeX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ResourcePurgeX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6AAE8D8F2A978E0D00F9C33C /* ResourcePurgeXApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcePurgeXApp.swift; sourceTree = "<group>"; };
 		6AAE8D912A978E0D00F9C33C /* MainContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentView.swift; sourceTree = "<group>"; };
 		6AAE8D932A978E1000F9C33C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AAE8D962A978E1000F9C33C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		6AAE8D982A978E1000F9C33C /* ScanSweep.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScanSweep.entitlements; sourceTree = "<group>"; };
+		6AAE8D982A978E1000F9C33C /* ResourcePurgeX.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ResourcePurgeX.entitlements; sourceTree = "<group>"; };
 		6AAE8DA52A97B57300F9C33C /* MainContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContentViewModel.swift; sourceTree = "<group>"; };
 		6AAE8DAA2A987FB600F9C33C /* DeleteStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStatusView.swift; sourceTree = "<group>"; };
 		6AAE8DAC2A988F4400F9C33C /* DeleteStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStatusViewModel.swift; sourceTree = "<group>"; };
@@ -49,7 +49,7 @@
 		6AAE8D832A978E0D00F9C33C = {
 			isa = PBXGroup;
 			children = (
-				6AAE8D8E2A978E0D00F9C33C /* ScanSweep */,
+				6AAE8D8E2A978E0D00F9C33C /* App */,
 				6AAE8D8D2A978E0D00F9C33C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,16 +57,16 @@
 		6AAE8D8D2A978E0D00F9C33C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6AAE8D8C2A978E0D00F9C33C /* ScanSweep.app */,
+				6AAE8D8C2A978E0D00F9C33C /* ResourcePurgeX.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		6AAE8D8E2A978E0D00F9C33C /* ScanSweep */ = {
+		6AAE8D8E2A978E0D00F9C33C /* App */ = {
 			isa = PBXGroup;
 			children = (
 				6AF7C3D82A99D1A9007386DC /* Info.plist */,
-				6AAE8D8F2A978E0D00F9C33C /* ScanSweepApp.swift */,
+				6AAE8D8F2A978E0D00F9C33C /* ResourcePurgeXApp.swift */,
 				6AAE8D912A978E0D00F9C33C /* MainContentView.swift */,
 				6AFC3E112A9A61BD003B27F8 /* ExportView.swift */,
 				6AAE8DAE2A9916EA00F9C33C /* ToggleState.swift */,
@@ -74,10 +74,10 @@
 				6AAE8DAA2A987FB600F9C33C /* DeleteStatusView.swift */,
 				6AAE8DAC2A988F4400F9C33C /* DeleteStatusViewModel.swift */,
 				6AAE8D932A978E1000F9C33C /* Assets.xcassets */,
-				6AAE8D982A978E1000F9C33C /* ScanSweep.entitlements */,
+				6AAE8D982A978E1000F9C33C /* ResourcePurgeX.entitlements */,
 				6AAE8D952A978E1000F9C33C /* Preview Content */,
 			);
-			path = ScanSweep;
+			path = App;
 			sourceTree = "<group>";
 		};
 		6AAE8D952A978E1000F9C33C /* Preview Content */ = {
@@ -91,9 +91,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6AAE8D8B2A978E0D00F9C33C /* ScanSweep */ = {
+		6AAE8D8B2A978E0D00F9C33C /* ResourcePurgeX */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6AAE8D9B2A978E1000F9C33C /* Build configuration list for PBXNativeTarget "ScanSweep" */;
+			buildConfigurationList = 6AAE8D9B2A978E1000F9C33C /* Build configuration list for PBXNativeTarget "ResourcePurgeX" */;
 			buildPhases = (
 				6AAE8D882A978E0D00F9C33C /* Sources */,
 				6AAE8D892A978E0D00F9C33C /* Frameworks */,
@@ -103,12 +103,12 @@
 			);
 			dependencies = (
 			);
-			name = ScanSweep;
+			name = ResourcePurgeX;
 			packageProductDependencies = (
 				6AAE8DA22A97964B00F9C33C /* FengNiaoKit */,
 			);
 			productName = SweepUnusedImages;
-			productReference = 6AAE8D8C2A978E0D00F9C33C /* ScanSweep.app */;
+			productReference = 6AAE8D8C2A978E0D00F9C33C /* ResourcePurgeX.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -126,7 +126,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6AAE8D872A978E0D00F9C33C /* Build configuration list for PBXProject "ScanSweep" */;
+			buildConfigurationList = 6AAE8D872A978E0D00F9C33C /* Build configuration list for PBXProject "ResourcePurgeX" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -142,7 +142,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6AAE8D8B2A978E0D00F9C33C /* ScanSweep */,
+				6AAE8D8B2A978E0D00F9C33C /* ResourcePurgeX */,
 			);
 		};
 /* End PBXProject section */
@@ -168,7 +168,7 @@
 				6AAE8D922A978E0D00F9C33C /* MainContentView.swift in Sources */,
 				6AAE8DA62A97B57300F9C33C /* MainContentViewModel.swift in Sources */,
 				6AAE8DAF2A9916EA00F9C33C /* ToggleState.swift in Sources */,
-				6AAE8D902A978E0D00F9C33C /* ScanSweepApp.swift in Sources */,
+				6AAE8D902A978E0D00F9C33C /* ResourcePurgeXApp.swift in Sources */,
 				6AAE8DAB2A987FB600F9C33C /* DeleteStatusView.swift in Sources */,
 				6AFC3E122A9A61BD003B27F8 /* ExportView.swift in Sources */,
 			);
@@ -300,16 +300,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = ScanSweep/ScanSweep.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/ResourcePurgeX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ScanSweep/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ScanSweep/Info.plist;
+				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -318,7 +318,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ldakhoa.SweepUnusedImages;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ldakhoa.ResourcePurgeX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -330,16 +330,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = ScanSweep/ScanSweep.entitlements;
+				CODE_SIGN_ENTITLEMENTS = App/ResourcePurgeX.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"ScanSweep/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"App/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = ScanSweep/Info.plist;
+				INFOPLIST_FILE = App/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -348,7 +348,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0.2;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ldakhoa.SweepUnusedImages;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ldakhoa.ResourcePurgeX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -358,7 +358,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6AAE8D872A978E0D00F9C33C /* Build configuration list for PBXProject "ScanSweep" */ = {
+		6AAE8D872A978E0D00F9C33C /* Build configuration list for PBXProject "ResourcePurgeX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6AAE8D992A978E1000F9C33C /* Debug */,
@@ -367,7 +367,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6AAE8D9B2A978E1000F9C33C /* Build configuration list for PBXNativeTarget "ScanSweep" */ = {
+		6AAE8D9B2A978E1000F9C33C /* Build configuration list for PBXNativeTarget "ResourcePurgeX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6AAE8D9C2A978E1000F9C33C /* Debug */,

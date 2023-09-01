@@ -12,7 +12,7 @@ final class MainContentViewModel: ObservableObject {
         contentState == .loading
     }
 
-    private let queue = DispatchQueue(label: "com.ldakhoa.scansweep", attributes: .concurrent)
+    private let queue = DispatchQueue(label: "com.ldakhoa.ResourcePurgeX", attributes: .concurrent)
 
     func fetchUnusedFiles(
         from path: String,

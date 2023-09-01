@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct ScanSweepApp: App {
+struct ResourcePurgeXApp: App {
     var body: some Scene {
         WindowGroup {
             MainContentView()
