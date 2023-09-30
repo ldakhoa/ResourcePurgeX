@@ -1,3 +1,5 @@
+**Heads Up!** ResourcePurgeX is moved to [FengNiao](https://github.com/onevcat/FengNiao/pull/75) since it depends on FengNiao as a backend. Please use the mac version from there instead.
+
 # ResourcePurgeX
 
 A Mac App to find and delete unused image resources from your Xcode project.
